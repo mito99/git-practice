@@ -1,64 +1,34 @@
-# フォルダ構成
-```plain
-<ROOT>
-├── docs                           # 【ナレッジベース】設計・運用・ルールの正本
-│   │
-│   ├── 10_仕様書                  # 【WHAT】システムの正解（常に最新化）
-│   │   ├── 10_全体方針
-│   │   │   ├── システム構成図.md
-│   │   │   ├── 機能一覧.md
-│   │   │   └── 用語集.md          # 日/英の定義 (UBIQUITOUS LANGUAGE)
-│   │   │
-│   │   ├── 20_インターフェース     # 【IN / Presentation】
-│   │   │   ├── web-api/           # 画面・API仕様
-│   │   │   └── batch-app/         # バッチ起動仕様
-│   │   │
-│   │   ├── 30_ビジネスロジック     # 【PROC / Use Case】
-│   │   │   ├── ドメインモデル      # ★重要: 業務データ(Entity)の定義
-│   │   │   │   ├── DM01_契約.md    # 「契約」として正しい状態を定義
-│   │   │   │   └── DM02_顧客.md
-│   │   │   │
-│   │   │   ├── 値オブジェクト      # ★重要: 再利用可能な型(Value Object)の定義
-│   │   │   │   ├── 01_基本型       # 汎用的な型 (Primitives)
-│   │   │   │   │   ├── 金額.md
-│   │   │   │   │   └── メールアドレス.md
-│   │   │   │   ├── 02_識別子       # IDに関する型 (Identifier)
-│   │   │   │   │   ├── 契約番号.md
-│   │   │   │   │   └── 申込番号.md
-│   │   │   │   ├── 03_区分値       # Enum定義
-│   │   │   │   │   └── サービス区分.md
-│   │   │   │   ├── 04_期間・日時   # 期間・範囲 (Period/Range)
-│   │   │   │   │   ├── 有効期間.md
-│   │   │   │   │   └── 年度.md
-│   │   │   │   └── 05_複合情報     # 複数の属性を持つ型 (Composite)
-│   │   │   │       ├── 住所.md
-│   │   │   │       └── 氏名.md
-│   │   │   │
-│   │   │   └── ユースケース        # ★重要: 業務の流れ (機能ID単位)
-│   │   │       ├── UC001_契約管理
-│   │   │       └── UC999_共通業務
-│   │   │
-│   │   ├── 40_データアクセス       # 【OUT / Interface Adapter】★重要
-│   │   │   │                      # 50, 60を抽象化した「論理的なアクセス仕様」
-│   │   │   ├── クエリ              # 参照系 (Read Model) -> 主にDB参照
-│   │   │   ├── リポジトリ          # 更新系 (Write Model) -> 50_データベースの抽象化
-│   │   │   └── ゲートウェイ        # 外部連携 (External) -> 60_外部連携の抽象化
-│   │   │
-│   │   ├── 50_データベース         # 【INFRA / Driver】
-│   │   │   ├── ddl                # 物理テーブル定義 (SQL正本)
-│   │   │   └── マスタデータ        # 初期データ (CSV)
-│   │   │
-│   │   ├── 60_外部連携             # 【INFRA / Driver】
-│   │   │   ├── 01_決済システム     # OpenAPI定義
-│   │   │   └── 02_メール配信       # SMTP仕様
-│   │   │
-│   │   └── 90_共通部品             # 【UTIL】技術的共通機能
-│   │
-│   ├── 20_ルール方針              # 【HOW】ガイドライン・アーキテクチャ
-│   ├── 30_運用保守                # 【RUN】手順書
-│   └── 90_プロジェクト計画         # 【PLAN】案件ごとの初期検討ログ
-│
-├── apps                           # アプリケーションコード (Controller / Main)
-├── libs                           # 共通モジュールコード (Service / Repository)
-└── infra                          # インフラ定義 (Docker / Tomcat)
-```
+# プロジェクト名
+一行で何をするプロジェクトかを書く。
+
+## Overview
+- 目的: 簡潔な目的説明
+- 主な構成: apps/, libs/, docs/, infra/
+
+## Getting Started
+Prerequisites:
+- OS: Linux / macOS / Windows
+- 必須ツール: git, Docker (必要なら), その他
+
+セットアップ:
+1. リポジトリをクローン: `git clone <repo-url>`
+2. 依存をインストール: `make setup` または `./scripts/setup.sh`
+3. サービス起動（例）: `make start` または `docker-compose up`
+
+## Development
+- ビルド: `make build`
+- テスト: `make test`
+- Lint/Format: `make lint` / `make fmt`
+
+## Docs
+詳細設計・仕様は [docs](docs/) を参照。
+
+## Contributing
+- ブランチ命名: `feature/<ticket>`、`fix/<ticket>` 等
+- PRテンプレ: タイトル / 目的 / 変更点 / 動作確認手順
+
+## License
+- ライセンス名（例: MIT）
+
+## Contact
+- Maintainer: 名前 / メール / GitHub アカウント
