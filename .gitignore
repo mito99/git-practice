@@ -67,3 +67,6 @@ docker-compose.override.yml
 coverage/
 coverage-report/
 reports/
+
+# Scripts/db-miration/
+scripts/db-migration/.run_migrations/
