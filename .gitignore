@@ -1,0 +1,69 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Runtime / temp
+tmp/
+temp/
+*.tmp
+
+# Build outputs
+build/
+**/build/
+out/
+dist/
+target/
+
+# Gradle
+.gradle/
+build.gradle.kts.lock
+.gradle-cache/
+
+# Java / IDE
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+/.idea/
+/*.ipr
+/*.iws
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# VS Code (keep if intentionally committed)
+.vscode/*
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log
+.pnp.*
+.pnp.js
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.env
+.venv/
+
+# Docker
+docker-compose.override.yml
+.env.production
+.env.local
+
+# Misc
+*.swp
+*~ 
+*.bak
+coverage/
+coverage-report/
+reports/
