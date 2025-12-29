@@ -38,35 +38,10 @@ build.gradle.kts.lock
 .classpath
 .settings/
 
-# VS Code (keep if intentionally committed)
-.vscode/*
-
-# Node
-node_modules/
-npm-debug.log*
-yarn-error.log
-.pnp.*
-.pnp.js
-
-# Python
-__pycache__/
-*.pyc
-venv/
-.env
-.venv/
-
 # Docker
 docker-compose.override.yml
 .env.production
 .env.local
-
-# Misc
-*.swp
-*~ 
-*.bak
-coverage/
-coverage-report/
-reports/
 
 # Scripts/db-miration/
 scripts/db-migration/.run_migrations/
