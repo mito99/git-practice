@@ -1,7 +1,5 @@
 rootProject.name = 'post-code-sample'
 
-// モジュールの包含定義
 include 'libs:postal-code-core'
-//include 'infra:persistence'
-//include 'infra:external-api'
-//include 'apps:web-ai'
+
+project(':libs:postal-code-core').projectDir = file('projects/libs/postal-code-core')
