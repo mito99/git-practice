@@ -1,5 +1,5 @@
 rootProject.name = 'post-code-sample'
 
-include 'libs:postal-code-core'
+include 'postal-code-core'
 
-project(':libs:postal-code-core').projectDir = file('projects/libs/postal-code-core')
+project(':postal-code-core').projectDir = file('projects/libs/postal-code-core')
