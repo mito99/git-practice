@@ -1,5 +1,7 @@
 rootProject.name = 'post-code-sample'
 
 include 'logic-postal-code-core'
+include 'infra-database'
 
 project(':logic-postal-code-core').projectDir = file('projects/logic/logic-postal-code-core')
+project(':infra-database').projectDir = file('projects/infra/infra-database')

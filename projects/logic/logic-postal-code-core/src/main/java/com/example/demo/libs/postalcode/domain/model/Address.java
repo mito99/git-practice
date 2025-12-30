@@ -1,25 +1,20 @@
 package com.example.demo.libs.postalcode.domain.model;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Builder
+@RequiredArgsConstructor
 public class Address {
-  private String street;
-  private String city;
-  private String postalCode;
-
-  public Address(String street, String city, String postalCode) {
-    this.street = street;
-    this.city = city;
-    this.postalCode = postalCode;
-  }
-
-  public String getStreet() {
-    return street;
-  }
-
-  public String getCity() {
-    return city;
-  }
-
-  public String getPostalCode() {
-    return postalCode;
-  }
+  @Getter
+  private final String street;
+  @Getter
+  private final String city;
+  @Getter
+  private final String town;
+  @Getter
+  private final String prefecture;
+  @Getter
+  private final PostalCode postalCode;
 }
