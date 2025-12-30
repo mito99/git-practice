@@ -1,4 +1,4 @@
-package com.example.demo.infra.database.jpa.repository;
+package com.example.demo.infra.database.jpa.dao;
 
 import java.util.List;
 

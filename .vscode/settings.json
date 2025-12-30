@@ -1,6 +1,5 @@
 {
   "java.configuration.updateBuildConfiguration": "automatic",
-  "java.compile.nullAnalysis.mode": "automatic",
   "java.format.settings.url": "config/eclipse-formatter-spring.xml",
   "[java]": {
     "editor.defaultFormatter": "redhat.java",
@@ -9,5 +8,6 @@
       "source.optimizeImports": "always"
     }
   },
-  "java.dependency.packagePresentation": "hierarchical"
+  "java.dependency.packagePresentation": "hierarchical",
+  "java.compile.nullAnalysis.mode": "disabled"
 }

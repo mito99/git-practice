@@ -3,4 +3,13 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'org.postgresql:postgresql'
+    
+    // Testcontainers
+    testImplementation "org.testcontainers:testcontainers-junit-jupiter"
+    testImplementation "org.testcontainers:testcontainers-postgresql"
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    //-- Testcontainers が必要とするライブラリのバージョンが古いため、明示的に新しいバージョンを指定する
+    testImplementation 'org.apache.commons:commons-lang3:3.14.0'
+    testImplementation 'org.apache.commons:commons-compress:1.26.1'
+
 }

@@ -1,11 +1,11 @@
-package com.example.demo.infra.database;
+package com.example.demo.infra.database.jpa.repository;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
+import com.example.demo.infra.database.jpa.dao.SearchHistoryJpaDao;
 import com.example.demo.infra.database.jpa.entity.SearchHistoryJpaEntity;
-import com.example.demo.infra.database.jpa.repository.SearchHistoryJpaDao;
 import com.example.demo.libs.postalcode.domain.model.Address;
 import com.example.demo.libs.postalcode.domain.model.PostalCode;
 import com.example.demo.libs.postalcode.domain.model.SearchHistory;
@@ -14,7 +14,7 @@ import com.example.demo.libs.postalcode.domain.repository.SearchHistoryRepositor
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
-@Component
+@Repository
 @RequiredArgsConstructor
 public class JpaSearchHistoryRepository implements SearchHistoryRepository {
 
