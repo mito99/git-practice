@@ -1,0 +1,13 @@
+dependencies {
+    implementation project(':logic-postal-code-core')
+    
+    // RestClient や Jackson を使用するために必要
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    
+    // バリデーション等が必要な場合
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // テスト用の依存関係
+    testImplementation "org.testcontainers:testcontainers-junit-jupiter"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}

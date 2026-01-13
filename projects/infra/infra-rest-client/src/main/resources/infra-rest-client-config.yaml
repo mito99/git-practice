@@ -1,0 +1,4 @@
+# デフォルト設定
+gateway:
+  zipcloud:
+    url: https://zipcloud.ibsnet.co.jp
