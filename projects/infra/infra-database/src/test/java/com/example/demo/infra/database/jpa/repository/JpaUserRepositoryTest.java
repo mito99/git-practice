@@ -89,6 +89,8 @@ class JpaUserRepositoryTest extends AbstractRepositoryTest {
       String emailStr = email.toString();
       UserJpaEntity e = new UserJpaEntity();
       e.setId(id);
+      e.setAccountName("test");
+      e.setPasswordHash("passwordhash");
       e.setEmail(emailStr);
       e.setFirstName("F");
       e.setLastName("L");

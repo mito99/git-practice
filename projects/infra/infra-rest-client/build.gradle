@@ -1,5 +1,5 @@
 dependencies {
-    implementation project(':logic-postal-code-core')
+    implementation project(':logic-practice-core')
     
     // RestClient や Jackson を使用するために必要
     implementation 'org.springframework.boot:spring-boot-starter-web'

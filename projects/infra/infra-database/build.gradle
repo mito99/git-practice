@@ -1,5 +1,5 @@
 dependencies {
-    implementation project(':logic-postal-code-core')
+    implementation project(':logic-practice-core')
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'org.postgresql:postgresql'

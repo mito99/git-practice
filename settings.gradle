@@ -1,9 +1,9 @@
-rootProject.name = 'post-code-sample'
+rootProject.name = 'practice-project'
 
-include 'logic-postal-code-core'
+include 'logic-practice-core'
 include 'infra-database'
 include 'infra-rest-client'
 
-project(':logic-postal-code-core').projectDir = file('projects/logic/logic-postal-code-core')
+project(':logic-practice-core').projectDir = file('projects/logic/logic-practice-core')
 project(':infra-database').projectDir = file('projects/infra/infra-database')
 project(':infra-rest-client').projectDir = file('projects/infra/infra-rest-client')
