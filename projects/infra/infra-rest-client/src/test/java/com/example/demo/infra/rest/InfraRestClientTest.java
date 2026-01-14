@@ -7,7 +7,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureMockRestServiceServer;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
@@ -17,8 +16,7 @@ import org.springframework.test.context.TestPropertySource;
 @Inherited
 @SpringBootTest(classes = TestApplication.class)
 @TestPropertySource(properties = {
-    "spring.config.import=optional:classpath:infra-rest-client-config.yaml"
+        "spring.config.import=optional:classpath:infra-rest-client-config.yaml"
 })
-@AutoConfigureMockRestServiceServer
 public @interface InfraRestClientTest {
 }

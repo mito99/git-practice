@@ -1,4 +1,4 @@
-package com.example.demo.libs.postalcode.domain.model;
+package com.example.demo.libs.postalcode.address.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

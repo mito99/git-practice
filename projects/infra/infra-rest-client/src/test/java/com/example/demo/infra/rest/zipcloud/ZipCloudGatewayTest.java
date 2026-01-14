@@ -6,6 +6,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureMockRestServiceServer;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
 
@@ -14,6 +15,7 @@ import com.example.demo.infra.rest.InfraRestClientTest;
 import lombok.val;
 
 @InfraRestClientTest
+@AutoConfigureMockRestServiceServer
 public class ZipCloudGatewayTest {
 
   @Autowired

@@ -1,16 +1,26 @@
--- 検索履歴テーブル
-CREATE TABLE search_history (
-    id BIGSERIAL PRIMARY KEY,
+-- ユーザテーブル
+CREATE TABLE users (
+    id UUID PRIMARY KEY,
+    account_name VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
     postal_code VARCHAR(7) NOT NULL,
-    prefecture VARCHAR(10) NOT NULL,
-    city VARCHAR(50) NOT NULL,
-    town VARCHAR(50) NOT NULL,
-    search_at TIMESTAMP NOT NULL,
-
-    -- 検索などのためインデックスを貼る想定
-    CONSTRAINT idx_search_history_postal_code CHECK (LENGTH(postal_code) = 7)
+    address_line1 VARCHAR(255) NOT NULL,
+    address_line2 VARCHAR(255),
+    address_line3 VARCHAR(255)
 );
 
-COMMENT ON TABLE search_history IS '郵便番号検索履歴';
-COMMENT ON COLUMN search_history.postal_code IS '郵便番号(7桁)';
-COMMENT ON COLUMN search_history.search_at IS '検索日時';
+-- コメント定義
+COMMENT ON TABLE users IS 'システムを利用するユーザの情報を管理するテーブル';
+COMMENT ON COLUMN users.id IS 'プライマリーキー (UUIDv7)';
+COMMENT ON COLUMN users.account_name IS 'アカウント名（システム内での一意識別名）';
+COMMENT ON COLUMN users.email IS 'メールアドレス';
+COMMENT ON COLUMN users.password_hash IS 'ハッシュ化されたパスワード';
+COMMENT ON COLUMN users.first_name IS '名';
+COMMENT ON COLUMN users.last_name IS '姓';
+COMMENT ON COLUMN users.postal_code IS '郵便番号（ハイフンなし7桁）';
+COMMENT ON COLUMN users.address_line1 IS '住所1（都道府県・市区町村）';
+COMMENT ON COLUMN users.address_line2 IS '住所2（町域・番地）';
+COMMENT ON COLUMN users.address_line3 IS '住所3（建物名・部屋番号等）';
