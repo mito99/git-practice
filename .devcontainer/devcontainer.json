@@ -1,0 +1,68 @@
+{
+  "name": "Java17 & Gradle8 with mise",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  // コンテナ起動時に自動でWindows側に公開するポートを指定
+  "forwardPorts": [
+    8080,
+    5432
+  ],
+  // ポートに名前（ラベル）を付けると分かりやすくなります
+  "portsAttributes": {
+    "8080": {
+      "label": "Spring Boot App",
+      "onAutoForward": "notify"
+    },
+    "5432": {
+      "label": "PostgreSQL",
+      "onAutoForward": "silent"
+    }
+  },
+  "features": {
+    // Docker CLI をコンテナにインストールし、ホストの Docker と繋ぐ
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "enableNonRootDocker": "true"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        // VS CodeのJava拡張機能に、miseで入れたJavaのパスを教える
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-17",
+            "path": "/home/vscode/.local/share/mise/installs/java/17",
+            "default": true
+          }
+        ],
+        "java.import.gradle.java.home": "/home/vscode/.local/share/mise/installs/java/17",
+        "java.jdt.ls.java.home": "/home/vscode/.local/share/mise/installs/java/17",
+        "gradle.java.home": "/home/vscode/.local/share/mise/installs/java/17"
+      },
+      "extensions": [
+        // --- Git 関連 (追加) ---
+        "mhutchie.git-graph", // コミット履歴をグラフ表示
+        "eamodio.gitlens", // 強力な履歴追跡・Blame表示
+        "github.vscode-pull-request-github", // GitHub PR/Issue連携
+        // --- UI & Language (基本設定) ---
+        "MS-CEINTL.vscode-language-pack-ja", // 日本語化パック
+        "patbenatar.advanced-new-file", // ファイル作成の効率化
+        // --- Java & Spring Boot (メイン開発) ---
+        "vscjava.vscode-java-pack", // Java開発必須パック (Debugger, Test Runner等)
+        "vmware.vscode-boot-dev-pack", // Spring Boot開発サポート
+        "vscjava.vscode-lombok", // Lombokアノテーションの認識
+        "vscjava.vscode-gradle", // Gradleビルドツール連携
+        // --- Infrastructure & Data (DB・コンテナ) ---
+        "ms-azuretools.vscode-docker", // Docker操作
+        "ms-ossdata.vscode-pgsql", // PostgreSQLクライアント
+        "bruno-api-client.bruno", // Bruno (APIテスト)
+        // --- AI (開発支援) ---
+        "github.copilot", // AIコード補完
+        "github.copilot-chat" // AIチャット
+      ]
+    }
+  },
+  "remoteUser": "vscode"
+}
