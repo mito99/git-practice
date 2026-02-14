@@ -1,0 +1,112 @@
+name: CI (Java-Gradle-Project)
+run-name: >-
+  CI: ${{ 
+    github.event_name == 'schedule' && 'Nightly Full Test' || 
+    (github.event_name == 'workflow_dispatch' && github.event.inputs.target_project) || 
+    'Push Diff Test' 
+  }}
+
+permissions:
+  contents: read # コードの読み取りに必要
+  checks: write # テストレポートの作成に必要（これがないとエラーになります）
+  pull-requests: write # PRにコメントを残したい場合などに便利
+
+on:
+  push:
+    branches:
+      - main
+      - feature/**
+    paths:
+      - "projects/**"
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+    inputs:
+      target_project:
+        description: "実行するプロジェクトを選択してください"
+        required: true
+        default: "all"
+        type: choice
+        options:
+          - all
+          - infra-database
+          - infra-rest-client
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      # 実行対象のリストを JSON で出力する
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      # 実行対象があるかどうかのフラグ
+      count: ${{ steps.set-matrix.outputs.count }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        if: github.event_name == 'push'
+        with:
+          filters: |
+            infra-database: 'projects/infra/infra-database/**'
+            infra-rest-client: 'projects/infra/infra-rest-client/**'
+
+      - id: set-matrix
+        run: |
+          # 手動(all/未指定) または スケジュール実行なら全対象
+          if [[ "${{ github.event.inputs.target_project }}" == "all" || 
+                "${{ github.event.inputs.target_project }}" == "" || 
+                "${{ github.event_name }}" == "schedule" ]]; then
+
+            JSON='["infra-database", "infra-rest-client"]'
+
+          # 手動(個別選択)
+          elif [[ "${{ github.event.inputs.target_project }}" != "" ]]; then
+            
+            JSON='["${{ github.event.inputs.target_project }}"]'
+
+          else
+            # Pushで変更のあったプロジェクトのみ
+            JSON=$(echo '${{ toJson(steps.filter.outputs) }}' | jq -c '
+              to_entries | 
+              map(select(.value == "true") | .key)
+            ')
+          fi
+
+          echo "matrix=$JSON" >> $GITHUB_OUTPUT
+          echo "count=$(echo "$JSON" | jq "length")" >> $GITHUB_OUTPUT
+
+  test:
+    needs: changes
+    if: needs.changes.outputs.count != '0'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        id: ${{ fromJson(needs.changes.outputs.matrix) }}
+
+    name: "Test: ${{ matrix.id }}"
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          cache-read-only: false
+
+      - name: Run tests
+        run: ./gradlew :${{ matrix.id }}:test --info
+
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Report - ${{ matrix.id }}
+          path: "**/build/test-results/test/TEST-*.xml"
+          reporter: java-junit
+

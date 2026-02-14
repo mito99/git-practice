@@ -93,7 +93,7 @@ public class JpaUserRepository implements UserRepository {
 
     val name = new PersonName(entity.getFirstName(), entity.getLastName());
 
-    EMailAddress email = new EMailAddress();
+    val email = new EMailAddress(entity.getEmail());
 
     return User.builder()
         .id(UserId.from(entity.getId()))

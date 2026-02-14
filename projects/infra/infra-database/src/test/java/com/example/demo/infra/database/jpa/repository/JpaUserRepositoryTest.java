@@ -39,7 +39,7 @@ class JpaUserRepositoryTest extends AbstractRepositoryTest {
       jpaDao.deleteAll();
       UUID id = UUID.randomUUID();
       val uid = UserId.from(id);
-      val email = new EMailAddress();
+      val email = new EMailAddress("test@test.com");
       val name = new PersonName("First", "Last");
       val addr = Address.builder()
           .postalCode(new PostalCode("7654321"))
@@ -76,7 +76,7 @@ class JpaUserRepositoryTest extends AbstractRepositoryTest {
     @Test
     void 該当がない場合_nullが返ること() {
       jpaDao.deleteAll();
-      val res = repository.findByEmailAddress(new EMailAddress());
+      val res = repository.findByEmailAddress(new EMailAddress("nonexistent@test.com"));
       assertThat(res).isNull();
     }
 
@@ -85,7 +85,7 @@ class JpaUserRepositoryTest extends AbstractRepositoryTest {
       // Arrange
       jpaDao.deleteAll();
       UUID id = UUID.randomUUID();
-      val email = new EMailAddress();
+      val email = new EMailAddress("test@test.com");
       String emailStr = email.toString();
       UserJpaEntity e = new UserJpaEntity();
       e.setId(id);

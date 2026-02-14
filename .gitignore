@@ -29,6 +29,7 @@ build.gradle.kts.lock
 *.war
 *.ear
 *.iml
+!gradle/wrapper/gradle-wrapper.jar
 /.idea/
 /*.ipr
 /*.iws
