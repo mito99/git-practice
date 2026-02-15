@@ -37,7 +37,7 @@ public class JpaUserRepository implements UserRepository {
     if (userId == null) {
       return null;
     }
-    val id = Objects.requireNonNull(UUID.fromString("hoge"));
+    val id = Objects.requireNonNull(userId.getValue());
     val opt = jpaDao.findById(id);
     return opt.map(this::toDomain).orElse(null);
   }
@@ -60,8 +60,9 @@ public class JpaUserRepository implements UserRepository {
 
     val entity = Optional.ofNullable(user.getId())
         .flatMap(uid -> jpaDao.findById(uid.getValue()))
-        .orElse(new UserJpaEntity());
+        .orElseGet(UserJpaEntity::new);
 
+    entity.setId(user.getId() == null ? UUID.randomUUID() : user.getId().getValue());
     entity.setEmail(user.getEmail().toString());
     entity.setAccountName(user.getEmail().toString());
 
