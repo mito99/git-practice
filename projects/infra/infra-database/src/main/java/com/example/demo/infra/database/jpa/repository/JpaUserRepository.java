@@ -1,6 +1,8 @@
 package com.example.demo.infra.database.jpa.repository;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Repository;
@@ -35,7 +37,8 @@ public class JpaUserRepository implements UserRepository {
     if (userId == null) {
       return null;
     }
-    val opt = jpaDao.findById(UUID.fromString(userId.toString()));
+    val id = Objects.requireNonNull(UUID.fromString("hoge"));
+    val opt = jpaDao.findById(id);
     return opt.map(this::toDomain).orElse(null);
   }
 
@@ -54,16 +57,18 @@ public class JpaUserRepository implements UserRepository {
     if (user == null) {
       return;
     }
-    val entity = new UserJpaEntity();
-    if (user.getId() != null) {
-      entity.setId(UUID.fromString(user.getId().toString()));
+
+    val entity = Optional.ofNullable(user.getId())
+        .flatMap(uid -> jpaDao.findById(uid.getValue()))
+        .orElse(new UserJpaEntity());
+
+    entity.setEmail(user.getEmail().toString());
+    entity.setAccountName(user.getEmail().toString());
+
+    // passwordHash は domain から提供されないなら、既存値を保持する
+    if (entity.getPasswordHash() == null) {
+      entity.setPasswordHash("");
     }
-
-    // accountName/passwordHash not present in domain model; derive safe defaults
-    entity.setAccountName(user.getEmail() == null ? "" : user.getEmail().toString());
-    entity.setPasswordHash("");
-
-    entity.setEmail(user.getEmail() == null ? "" : user.getEmail().toString());
 
     val name = user.getFullName();
     if (name != null) {
@@ -92,11 +97,10 @@ public class JpaUserRepository implements UserRepository {
         .build();
 
     val name = new PersonName(entity.getFirstName(), entity.getLastName());
-
     val email = new EMailAddress(entity.getEmail());
 
     return User.builder()
-        .id(UserId.from(entity.getId()))
+        .id(UserId.from(Objects.requireNonNull(entity.getId())))
         .email(email)
         .fullName(name)
         .address(address)
